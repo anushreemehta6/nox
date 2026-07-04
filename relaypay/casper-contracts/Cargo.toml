@@ -1,38 +1,35 @@
 [package]
-name = "settlement-registry"
-version = "0.1.0"
 edition = "2021"
+name = "casper_contracts"
+version = "0.1.0"
 
 [dependencies]
-odra = "2.8.2"
+odra = { version = "2.8.2", features = [], default-features = false }
 
 [dev-dependencies]
-odra-test = "2.8.2"
+odra-test = { version = "2.8.2", features = [], default-features = false }
 
 [build-dependencies]
-odra-build = "2.8.2"
+odra-build = { version = "2.8.2", features = [], default-features = false }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-odra-build = "2.8.2"
-odra-cli = "2.8.2"
+odra-build = { version = "2.8.2", features = [], default-features = false }
+odra-cli = { version = "2.8.2", features = [], default-features = false }
 
 [[bin]]
-name = "settlement_registry_build_contract"
+name = "casper_contracts_build_contract"
 path = "bin/build_contract.rs"
 test = false
 
 [[bin]]
-name = "settlement_registry_build_schema"
+name = "casper_contracts_build_schema"
 path = "bin/build_schema.rs"
 test = false
 
 [[bin]]
-name = "settlement_registry_cli"
+name = "casper_contracts_cli"
 path = "bin/cli.rs"
 test = false
-
-[lib]
-crate-type = ["cdylib", "rlib"]
 
 [profile.release]
 codegen-units = 1

@@ -1,3 +1,2 @@
 [[contracts]]
-name = "settlement_registry"
 fqn = "settlement_registry::SettlementRegistry"

@@ -1,9 +1,0 @@
-ODRA_CASPER_LIVENET_NODE_ADDRESS=https://node.testnet.casper.network/rpc
-
-ODRA_CASPER_LIVENET_EVENTS_URL=https://events.testnet.casper.network/events/main
-
-ODRA_CASPER_LIVENET_CHAIN_NAME=casper-test
-
-ODRA_CASPER_LIVENET_SECRET_KEY_PATH="/mnt/c/Users/Anushree mehta/Downloads/casper-wallet-secret_keys (1)/Account 1_secret_key.pem"
-
-ODRA_CASPER_LIVENET_PUBLIC_KEY=02031902d01a0b19fb7b1b6c57b3da5a8350329c82904ff0b99881aedb85bd51a03
