@@ -11,7 +11,7 @@ async function main(): Promise<void> {
     signer,
   );
 
-  const tx = await registry.pay("relay-test-001", { value: 1n });
+  const tx = await registry.pay("relay-test-004", { value: 1n });
   await tx.wait();
   console.log("Payment sent:", tx.hash);
 }

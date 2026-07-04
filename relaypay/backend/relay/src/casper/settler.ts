@@ -4,6 +4,7 @@ import {
   CLValue,
   ContractCallBuilder,
   HttpHandler,
+  Key,
   KeyAlgorithm,
   PrivateKey,
   RpcClient,
@@ -74,8 +75,11 @@ export function createSettler(config: CasperConfig) {
 
       const args = Args.fromMap({
         payment_id: CLValue.newCLString(payment.paymentId),
-        payer: CLValue.newCLString(payment.payer),
+        payer: CLValue.newCLKey(
+          Key.newKey(privateKey.publicKey.accountHash().toPrefixedString()),
+        ),
         amount: CLValue.newCLUInt512(payment.amount.toString()),
+        evm_tx_hash: CLValue.newCLString(payment.txHash),
       });
 
       let builder = new ContractCallBuilder()
@@ -97,9 +101,29 @@ export function createSettler(config: CasperConfig) {
       transaction.sign(privateKey);
 
       const submitted = await client.putTransaction(transaction);
-      await client.waitForTransaction(transaction, config.txTimeoutMs);
-
       const casperTxHash = submitted.transactionHash.toHex();
+
+      console.log(`Submitted Casper transaction: ${casperTxHash}`);
+      console.log(`Waiting for Casper confirmation (${config.txTimeoutMs}ms timeout)...`);
+
+      const start = Date.now();
+      let confirmed = false;
+      while (Date.now() - start < config.txTimeoutMs) {
+        try {
+          const txInfo = await client.getTransactionByDeployHash(casperTxHash);
+          if (txInfo?.executionInfo?.executionResult) {
+            confirmed = true;
+            break;
+          }
+        } catch (error: any) {
+          // Ignore and wait
+        }
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+      }
+
+      if (!confirmed) {
+        throw new Error(`Transaction ${casperTxHash} did not confirm within ${config.txTimeoutMs}ms`);
+      }
 
       console.log("--- Casper Settlement Recorded ---");
       console.log("Payment ID:", payment.paymentId);
