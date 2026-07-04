@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #050507;
+  --foreground: #f8fafc;
+  --primary: #3b82f6; /* Softer professional blue */
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050507;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Grid Background */
+.grid-overlay {
+  background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Angled Futuristic Button */
+.btn-angled {
+  position: relative;
+  clip-path: polygon(
+    14px 0, 
+    100% 0, 
+    100% calc(100% - 14px), 
+    calc(100% - 14px) 100%, 
+    0 100%, 
+    0 14px
+  );
+  border: 1px solid var(--primary);
+  background: rgba(0, 242, 254, 0.03);
+  color: var(--primary);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 0 0px transparent;
+}
+
+.btn-angled:hover:not(:disabled) {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.15); /* Soft drop shadow instead of neon glow */
+  transform: translateY(-1px);
+}
+
+.btn-angled:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-angled:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+/* Removed glowing text and effects */
+.text-neon-cyan {
+  text-shadow: none; /* Removed neon glow */
+}
+
+.glow-border {
+  box-shadow: none; /* Removed neon glow border */
+}
+
+/* Mouse Spotlight */
+.mouse-spotlight {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+    rgba(255, 255, 255, 0.02), /* Soft white instead of cyan */
+    transparent 80%
+  );
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
