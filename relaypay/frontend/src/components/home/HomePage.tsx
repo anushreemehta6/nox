@@ -5,7 +5,6 @@ import Link from "next/link";
 import { formatEther } from "viem";
 import { useAccount, useBalance, useChainId, useDisconnect } from "wagmi";
 import { ConnectWalletButton } from "@/components/wallet/ConnectWalletButton";
-import { HardhatSetupPanel } from "@/components/wallet/HardhatSetupPanel";
 import { PayButton } from "@/components/payment/PayButton";
 import { getPaymentAmountWei, getPaymentRegistryAddress } from "@/lib/contracts/paymentRegistry";
 import { usePayment } from "@/hooks/usePayment";
@@ -221,7 +220,7 @@ export function HomePage() {
       } else {
         addLog(`[AI AGENT] ERROR: ${JSON.stringify(data)}`);
       }
-    } catch (err: any) {
+    } catch  {
       addLog(`[AI AGENT] Fetch failed. Ensure backend/x402-api is running on port 3002.`);
     }
   };
